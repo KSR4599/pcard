@@ -141,8 +141,8 @@ router.post('/del_request', function(req, res,next) {
 
 
     //END OF MAIL TRIGGERING //
-
-                     res.redirect('/api/login')
+    res.status(200).send("request deleted");
+                     //res.redirect('/api/login')
                     }
                   });
 
@@ -233,7 +233,8 @@ router.post('/del_request', function(req, res,next) {
  
  
      //END OF MAIL TRIGGERING //
-                     res.redirect('/api/login')
+     res.status(200).send("request approved");
+                     //res.redirect('/api/login')
                }
            });
                         
@@ -279,10 +280,13 @@ router.post('/del_request', function(req, res,next) {
                 }
             })                 
                     
+        } else {
+          res.status(404).send("user not found");
         }
               })
 
-              return res.json({ done : true });
+              //return res.json({ done : true });
+              res.status(200).send("handle updated");
       })
 
 

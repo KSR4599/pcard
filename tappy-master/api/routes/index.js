@@ -75,9 +75,11 @@ router.get('/',function(req, res,next){
 
       Admin.createAdmin(newAdmin,function(err, newAdmin){
         if(err) { 
-            throw err;  } else {
+          res.status(404).send("Error Creating the admin");
+            
+           } else {
 
-    return res.json({ done : true });
+            res.status(200).send("Admin created succesfully");
       
   }
 })
@@ -275,7 +277,7 @@ User.findOne({ 'pref_username': req.body.username}, function(err, user) {
                   
                       })
                   console.log("User is updated : "+ userUpdated);
-                  res.render('login1');
+                  res.status(200).send("user is updated succesfully");
                 }
               });
 
@@ -284,11 +286,15 @@ User.findOne({ 'pref_username': req.body.username}, function(err, user) {
         }
       
     } else {
-        console.log("User not verified");
+      console.log("User not verified");
+      res.status(404).send("This user is not verified");
+        
     }
     } 
     else{
-        console.log("User not Found!");
+      console.log("User not Found!");
+      res.status(404).send("This user is not found in DB");
+        
     }
 })
 })
@@ -302,10 +308,12 @@ passport.authenticate('local',{failureRedirect:'/api/wrong_login'}),
 function(req, res, next){
 
     if(flag == 2){
- res.redirect('/api/profile');
+      res.status(200).send("normal");
+ //res.redirect('/api/profile');
     } else {
         if(flag == 1){
-            res.redirect('/api/admin');
+          res.status(201).send("admin");
+            //res.redirect('/api/admin');
         }
     }
 

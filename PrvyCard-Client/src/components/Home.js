@@ -72,8 +72,8 @@ export default function SignUp() {
       console.log("Error occured"+ error);
     });
 
-    window.alert("res.status");
-
+    window.alert("res");
+    //history.push("/login");
     
     }
  };
