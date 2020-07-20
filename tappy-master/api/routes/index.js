@@ -121,9 +121,9 @@ router.get('/admin',function(req, res,next){
     console.log("admin login called");
     Admin.findOne({ 'name': 'admin'}, function(err, admin) {
         if(admin){
-            console.log("admin found : "+ admin); 
-
-            res.render('admin', {requests: [admin.requests]});
+            console.log("admin request found  : "+ admin.requests); 
+            res.status(200).send(JSON.stringify(admin.requests));
+            
 
         } else {
             console.log("admin not found"); 
@@ -160,6 +160,8 @@ router.get('/profile',function(req, res,next){
   var preferredname=req.query.pname;
   var result = '';
 
+  console.log("In register first name is last name is and email is "+ firstname + " " + lastname + " " + email);
+
   result           = '';
   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var charactersLength = characters.length;
@@ -174,13 +176,13 @@ router.get('/profile',function(req, res,next){
     } else {
 
         //Creating the user in DB
-        User.findOne({ 'email': req.body.email}, function(err, user) {
+        User.findOne({ 'email': email}, function(err, user) {
             if(user){
                 console.log("Duplicate email found!");
                 res.status(201).send("Duplicate Email");
               //res.render('index',{x:3});
             } else {
-                User.findOne({ 'pref_username': req.body.pname}, function(err, user1) {
+                User.findOne({ 'pref_username': preferredname}, function(err, user1) {
                     if(user1){
                         console.log("Duplicate pname found!");
                         res.status(202).send("Duplicate Pname");

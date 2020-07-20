@@ -28,8 +28,10 @@ import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { createBrowserHistory } from "history";
+import axios from 'axios';
 
 const history = createBrowserHistory({ forceRefresh: true });
+
 function createData(FirstName, LastName, Email, UserName, PrvyCode) {
   return { FirstName, LastName, Email, UserName, PrvyCode };
 }
@@ -77,6 +79,9 @@ const headCells = [
   { id: "UserName", numeric: false, disablePadding: false, label: "User Name" },
   { id:"PrvyCode", numeric:false, disablePadding:false, label: "Prvy Code"}
 ];
+
+
+
 
 function EnhancedTableHead(props) {
   const {
@@ -256,6 +261,30 @@ export function MenuAppBar() {
     const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+
+     useEffect(() => {
+     
+      let url = "http://localhost:8013/api/admin/";
+
+      axios.get(url)
+      .then(response => {
+        console.log("The response status in admin is " + response.status);
+        
+        const newData = response.data.map ( (data) => {
+          console.log(data.firstname, data.lastname, data.email,  data.pref_username, data.unique_code)
+        })
+
+        if(response.status === 200){
+          //history.push("/login");
+         } else {
+          //window.alert("Login Failed");
+         }
+        
+      })
+      .catch(error => {
+        console.log("Error occured"+ error);
+      });
+    });
   
     const handleChange = (event) => {
       setAuth(event.target.checked);

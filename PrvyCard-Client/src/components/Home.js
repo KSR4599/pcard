@@ -65,15 +65,24 @@ export default function SignUp() {
        
       await axios.post(url)
     .then(response => {
-      console.log("The response in home is " + response.status);
+      console.log("The response status in home is " + response.status);
+      console.log("The response body in home is " + response.data);
+      if(response.status === 200){
+        //history.push("/login");
+        //Here instead of pushing pop-up saying registration succesful
+       } else {
+        //window.alert("Login Failed");
+        //Here we can keep pop-up
+       }
       
     })
     .catch(error => {
       console.log("Error occured"+ error);
     });
 
-    window.alert("res");
-    //history.push("/login");
+   window.alert("res");
+  
+    
     
     }
  };
