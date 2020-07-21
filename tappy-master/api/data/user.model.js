@@ -1,20 +1,28 @@
 var mongoose = require('mongoose');
 var bcrypt=require('bcryptjs')
 
-var serviceSchema = new mongoose.Schema({
-  description:[String],
-  badpic:[String],
-  location:[{type: Number}],
-  status:[String]
-})
 
 var socialSchema1 = new mongoose.Schema({
+    
+    linkedin : { type: String, default: null },
     instagram : { type: String, default: null },
-    twitter : { type: String, default: null },
     facebook : { type: String, default: null },
-    snapchat : { type: String, default: null },
-    youtube : { type: String, default: null }
+    youtube : { type: String, default: null },
+    pinterest : { type: String, default: null },
+    reddit : { type: String, default: null },
+    twitter : { type: String, default: null }
   })
+
+  var contactSchema1 = new mongoose.Schema({
+    
+    country : { type: String, default: null },
+    state : { type: String, default: null },
+    cell : { type: String, default: null },
+    home : { type: String, default: null },
+    fax : { type: String, default: null }
+  })
+
+
 
 
 var userSchema= new mongoose.Schema({
@@ -37,6 +45,14 @@ var userSchema= new mongoose.Schema({
       type: String,
 
     },
+
+    bio : {
+      type: String,
+    },
+
+    address : {
+      type
+    },
     
     verified : Boolean,
 
@@ -45,7 +61,9 @@ var userSchema= new mongoose.Schema({
   
       },
 
-    socialSchema: socialSchema1
+    socialSchema: socialSchema1,
+
+    contactSchema: contactSchema1
 
 
   })

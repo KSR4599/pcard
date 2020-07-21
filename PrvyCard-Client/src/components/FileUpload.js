@@ -3,7 +3,8 @@ import Message from './Message';
 import Progress from './Progress';
 import axios from 'axios';
 
-const FileUpload = () => {
+const FileUpload = (props) => {
+    console.log(props.username);
   const [file, setFile] = useState('');
   const [filename, setFilename] = useState('Choose File');
   const [uploadedFile, setUploadedFile] = useState({});
@@ -19,6 +20,7 @@ const FileUpload = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('username',props.username);
 
     try {
       const res = await axios.post("http://localhost:8013/upload", formData, {

@@ -199,8 +199,11 @@ router.get('/profile',function(req, res,next){
                     lastname: lastname,
                     email:email,
                     pref_username:preferredname,
+                    bio:bio,
+                    address : address,
                     verified : false,
                     socialSchema : {},
+                    contactSchema : {},
                     unique_code : result
                   })
                   User.createUser(newUser,function(err, user){
