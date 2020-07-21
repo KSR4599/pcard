@@ -49,6 +49,9 @@ import ClearIcon from '@material-ui/icons/Clear';
 import usePlacesAutocomplete from "use-places-autocomplete";
 import Address from "./Address";
 import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
+import FileUpload from './FileUpload';
+
+
 
 const faces = [
     "http://i.pravatar.cc/300?img=1"
@@ -391,26 +394,13 @@ const[Address,setAddress]=React.useState('');
               <br/>
               <br/>
               <Grid item>
-            <label htmlFor="upload-button" > 
-            
-           
-           <Button
-                title="Upload Profile Image"
-                variant="contained"
-                component="span"
-                style={{width: '400px'}}
-              >
-                <CloudUploadIcon />
-                <span>&nbsp;&nbsp;</span>
-                  Upload Profile Picture
-              </Button>
-            </label>
-      <input
-        type="file"
-        id="upload-button"
-        style={{ display: "none" }}
-        onChange={handleChange}
-      />
+        
+
+          <FileUpload />
+
+
+
+
       <br/> 
       </Grid>
             </Grid>

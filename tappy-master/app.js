@@ -22,6 +22,10 @@ var mongo = require('mongodb')
 var mongoose = require('mongoose')
 const nodemailer = require('nodemailer')
 var cors = require("cors");
+const fileUpload = require('express-fileupload');
+
+
+app.use(fileUpload());
 
 app.use(cors());
 //the middleware use() function of express for serving static files.
@@ -30,6 +34,26 @@ app.get('/', function(req, res){
   res.render('index');
 
 });
+
+
+app.post('/upload', (req, res) => {
+  if (req.files === null) {
+    return res.status(400).json({ msg: 'No file uploaded' });
+  }
+
+  const file = req.files.file;
+  var file_name = 'ksr.png';
+
+  file.mv(`./public/pics/${file_name}`, err => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send(err);
+    }
+
+    res.json({ fileName: file_name, filePath: `./public/pics/${file.name}` });
+  });
+});
+
 
 
 //cookieParser

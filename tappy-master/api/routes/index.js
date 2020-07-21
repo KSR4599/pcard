@@ -1,6 +1,8 @@
 "use strict";
 var express = require('express');
 var app = express()
+const fileupload = require('express-fileupload')
+app.use(fileupload())
 var expressValidator = require('express-validator');
 var router = express.Router();
 module.exports = router;
@@ -14,10 +16,7 @@ var cookieParser = require('cookie-parser')
 var flash = require('express-flash-notification')
 var User=mongoose.model('User')
 var Admin = mongoose.model('Admin')
-var ctrlUsers = require('../controllers/users.controllers.js');
-var hbs  = require('express-handlebars');
-var path= require('path')
-var asy = require("async");
+const cors = require('cors')
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
   var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -26,7 +25,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(cors())
+
 const nodemailer = require('nodemailer')
+;
+
 
 var flag = 0;
 
@@ -253,7 +256,7 @@ router.post('/login', function(req, res,next) {
     var username= req.body.username;
     var code = req.body.unique_code;
     var password1 =req.body.password;
-    var password2 =req.body.password_repeat;
+
 
 //Check for same password
 
@@ -284,6 +287,7 @@ User.findOne({ 'pref_username': req.body.username}, function(err, user) {
               });
 
         } else {
+          res.status(403).send("User found but Unique Code MisMatched");
             console.log("User found but Unique Code MisMatched!");
         }
       
@@ -367,3 +371,4 @@ passport.use(new LocalStrategy(
 })
 
 }));
+

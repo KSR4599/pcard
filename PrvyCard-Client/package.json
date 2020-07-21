@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "social tap app",
   "private": true,
-  "proxy": "http://localhost:8013",
   "main": "build/index.js",
+  "proxy": "http://0.0.0.0:8013",
   "peerDependencies": {
     "react": "^15.5.4"
   },
