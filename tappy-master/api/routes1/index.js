@@ -306,15 +306,28 @@ router.post('/del_request', function(req, res,next) {
         vCard.title = 'Software Developer';
         vCard.url = 'https://github.com/enesser';
         vCard.note = 'Notes on Eric';
+
+
+        // vCard.firstName = req.firstname
+        // vCard.middleName = req.middlename;
+        // vCard.lastName = req.lastname;
+        // vCard.organization =  req.organization;
+        // vCard.photo.attachFromUrl(req.photo_url, 'JPEG');
+        // vCard.workPhone = req.workPhone;
+        // vCard.birthday = req.readableHighWaterMark;
+        // vCard.title = req.title;
+        // vCard.url = req.url;
+        // vCard.note = req.note;
         
         console.log(vCard.getFormattedString());
 
         vCard.saveToFile('./eric-nesser.vcf');  
-        
-        
-
         const fileName = 'eric-nesser.vcf';
         const filePath = path.join('./', fileName);
+
+        // const fileName = req.username+ '.vcf';
+        // vCard.saveToFile('./'+ fileName);  
+        // const filePath = path.join('./', fileName);
     
         // File options
          const options = {
@@ -341,4 +354,3 @@ router.post('/del_request', function(req, res,next) {
 
       })
       
-
