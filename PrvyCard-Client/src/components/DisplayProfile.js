@@ -42,7 +42,12 @@ import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import SaveIcon from '@material-ui/icons/Save';
-import VCard from 'vcard-creator'
+import axios from 'axios';
+import download from 'js-file-download';
+//import VCard from 'vcard-creator'
+var vCardsJS = require('vcards-js');
+
+
 
 
 
@@ -230,29 +235,17 @@ export default function SignUp() {
     });
   
     function downloadVcardFile(){
-        const myVCard = new VCard();
-        var lastname = 'Desloovere'
-var firstname = 'Jeroen'
-var additional = ''
-var prefix = ''
-var suffix = ''
- 
-// add personal data
-myVCard.addName(lastname, firstname, additional, prefix, suffix)
-        myVCard.addCompany('Siesqo')
-        myVCard.addJobtitle('Web Developer')
-        myVCard.addRole('Data Protection Officer')
-        myVCard.addEmail('info@jeroendesloovere.be')
-        myVCard.addPhoneNumber(1234121212, 'PREF;WORK')
-        myVCard.addPhoneNumber(123456789, 'WORK')
-        myVCard.addAddress(null, null, 'street', 'worktown', null, 'workpostcode', 'Belgium')
-        myVCard.addURL('http://www.jeroendesloovere.be')
-         
-        console.log(myVCard.toString())
+       // const myVCard = new VCard();
 
-        const FileSaver = require('file-saver');
-const blob = new Blob([ myVCard.toString() ], {type: "text/vcard;charset=utf-8"});
-FileSaver.saveAs(blob, "blob.vcf");
+
+let url = "http://localhost:8013/api1/get_vcard/";
+
+axios.get(url)
+.then(resp => {
+       download(resp.data, 'file.vcf');
+});
+
+
     };
 
     return (

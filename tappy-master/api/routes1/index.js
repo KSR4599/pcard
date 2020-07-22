@@ -28,7 +28,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 const nodemailer = require('nodemailer');
 const { ifError } = require('assert');
-
+var vCardsJS = require('vcards-js');
 var fs = require('fs');
 const FileReader = require('filereader');
 
@@ -290,3 +290,55 @@ router.post('/del_request', function(req, res,next) {
 
 
       })
+
+
+      router.get('/get_vcard', function(req, res, next) {
+        var vCard = vCardsJS();
+ 
+        //set properties
+        vCard.firstName = 'Eric';
+        vCard.middleName = 'J';
+        vCard.lastName = 'Nesser';
+        vCard.organization = 'ACME Corporation';
+        vCard.photo.attachFromUrl('https://avatars2.githubusercontent.com/u/5659221?v=3&s=460', 'JPEG');
+        vCard.workPhone = '312-555-1212';
+        vCard.birthday = new Date(1985, 0, 1);
+        vCard.title = 'Software Developer';
+        vCard.url = 'https://github.com/enesser';
+        vCard.note = 'Notes on Eric';
+        
+        console.log(vCard.getFormattedString());
+
+        vCard.saveToFile('./eric-nesser.vcf');  
+        
+        
+
+        const fileName = 'eric-nesser.vcf';
+        const filePath = path.join('./', fileName);
+    
+        // File options
+         const options = {
+            headers: {
+                'x-timestamp': Date.now(),
+                'x-sent': true,
+                'content-disposition': "attachment; filename=" + fileName, // gets ignored
+                'content-type': "text/vcard"
+            }
+        }
+    
+        try {
+            res.download(
+                filePath,
+                fileName,
+                options
+            );
+            console.log("File sent successfully!");
+        }
+        catch (error) {
+            console.error("File could not be sent!");
+            next(error);
+        }
+
+      })
+      
+

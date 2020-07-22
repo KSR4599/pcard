@@ -51,7 +51,7 @@ var userSchema= new mongoose.Schema({
     },
 
     address : {
-      type
+      type : String,
     },
     
     verified : Boolean,
